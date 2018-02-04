@@ -1,12 +1,14 @@
 
 # Deploying NeuVector Container Firewall on Docker4Mac in Kubernetes
 
+This is just a short preview of NeuVector!
+
 For detailed information about the NeuVector Container Firewall solutions, please visit our website at https://neuvector.com.
 
 
 ## Prerequisites
 
-* [Docker for Mac](https://docs.docker.com/docker-for-mac/) 18.02.0-ce (tested with Version 18.02.0-ce-rc2-mac51 (22446))
+* [Docker for Mac](https://docs.docker.com/docker-for-mac/) 18.02.0-ce (tested with Version 18.02.0-ce-rc2-mac51 (22446) from edge channel)
 * Kubernetes v1.9.2 musst be enabled in D4M
 
 
@@ -14,7 +16,7 @@ For detailed information about the NeuVector Container Firewall solutions, pleas
 
 First of all, you'll need access to the NeuVector Docker images which are available at a private Docker Hub account. In order to test NeuVector you should first apply for a trial license at https://neuvector.com/try-neuvector/.
 
-Create `neuvector` namespace:
+Create `"neuvector"` namespace:
 ```bash
 $ kubectl create namespace neuvector
 ```
@@ -120,7 +122,16 @@ Open your favorite web browser:
 $ open https://localhost:31733
 ```
 
-Now, login with the default account: `username=admin`, `password=admin`.
+![login-page](/images/neuvector-manager-ui-login-page.png)
+Now, login with the default admin account credentials: `username=admin`, `password=admin`.
+
+
+## Displaying the Container Vulnerability Scan Results
+
+Here is at least a sneak preview of the Container Vulnerability Scanning feature.
+![container-vulnerabilities](/images/neuvector-manager-ui-container-vulnerabilities.png)
+
+SUCCESS !!!
 
 
 ## Access the NeuVector API
