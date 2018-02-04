@@ -56,6 +56,20 @@ Data
 .dockerconfigjson:  166 bytes
 ```
 
+### Label the node
+
+List all available Kubernetes nodes, of course we'll get only one for Docker4Mac which is named `docker-for-desktop`.
+```bash
+$ kubectl get nodes
+NAME                 STATUS    ROLES     AGE       VERSION
+docker-for-desktop   Ready     master    20h       v1.9.2
+```
+
+Finally we have to label the node, so we can deploy the NeuVector Allinone DaemonSet on it.
+```bash
+$ kubectl label nodes docker-for-desktop nvallinone=true
+```
+
 
 ## Create NeuVector Deployment 
 
