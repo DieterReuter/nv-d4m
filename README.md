@@ -70,16 +70,16 @@ Show all available NeuVector resources:
 ```bash
 $ kubectl get all -n neuvector
 NAME                        DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR     AGE
-ds/neuvector-allinone-pod   1         1         1         1            0           nvallinone=true   24s
-ds/neuvector-allinone-pod   1         1         1         1            0           nvallinone=true   24s
+ds/neuvector-allinone-pod   1         1         1         1            1           nvallinone=true   11m
+ds/neuvector-allinone-pod   1         1         1         1            1           nvallinone=true   11m
 
 NAME                              READY     STATUS    RESTARTS   AGE
-po/neuvector-allinone-pod-x9p6b   1/1       Running   0          24s
+po/neuvector-allinone-pod-lp92w   1/1       Running   0          11m
 
 NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                         AGE
-svc/neuvector-api-svc       NodePort    10.108.49.188   <none>        10443:31505/TCP                 24s
-svc/neuvector-cluster-svc   ClusterIP   None            <none>        18300/TCP,18301/TCP,18301/UDP   24s
-svc/neuvector-manager-svc   NodePort    10.101.232.50   <none>        8443:30432/TCP                  24s
+svc/neuvector-api-svc       NodePort    10.110.37.68    <none>        10443:30558/TCP                 11m
+svc/neuvector-cluster-svc   ClusterIP   None            <none>        18300/TCP,18301/TCP,18301/UDP   11m
+svc/neuvector-manager-svc   NodePort    10.98.124.158   <none>        8443:31733/TCP                  11m
 ```
 
 
@@ -101,6 +101,49 @@ $ kubectl get all -n neuvector
 No resources found.
 ```
 
+
+----
+
+## Access the NeuVector Manager WebUI
+
+Detect the TCP port number of the NeuVector Manager:
+```bash
+$ kubectl get svc/neuvector-manager-svc -n neuvector
+NAME                    TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+neuvector-manager-svc   NodePort   10.98.124.158   <none>        8443:31733/TCP   5m
+```
+
+Open your favorite web browser:
+```bash
+$ open https://localhost:31733
+```
+
+Now, login with the default account: `username=admin`, `password=admin`.
+
+
+## Access the NeuVector API
+
+Detect the TCP port number of the NeuVector API:
+```bash
+$ kubectl get svc/neuvector-api-svc -n neuvector
+NAME                TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)           AGE
+neuvector-api-svc   NodePort   10.110.37.68   <none>        10443:30558/TCP   7m
+```
+
+Try to access the API:
+```bash
+$ curl -k https://localhost:30558/
+{"code":1,"error":"URL not found","message":"URL not found"}
+
+$ curl -sk https://localhost:30558/api/health | jq .
+{
+  "code": 1,
+  "error": "URL not found",
+  "message": "URL not found"
+}
+```
+
+As soon as we get a JSON answer, we know the API is accessible!
 
 ----
 
