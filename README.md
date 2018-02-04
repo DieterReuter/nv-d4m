@@ -1,7 +1,9 @@
 
 # Deploying NeuVector Container Firewall on Docker4Mac in Kubernetes
 
-This is just a short preview of NeuVector!
+**DISCLAMER:** NeuVector is not supported on D4M right now, but most of the features are working quite well. This is a personal repo.
+
+Take this just as a technology preview of NeuVector!
 
 For detailed information about the NeuVector Container Firewall solutions, please visit our website at https://neuvector.com.
 
