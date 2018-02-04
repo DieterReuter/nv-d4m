@@ -18,10 +18,15 @@ For detailed information about the NeuVector Container Firewall solutions, pleas
 
 First of all, you'll need access to the NeuVector Docker images which are available at a private Docker Hub account. In order to test NeuVector you should first apply for a trial license at https://neuvector.com/try-neuvector/.
 
-Create `"neuvector"` namespace:
+
+### Create `"neuvector"` namespace
+
 ```bash
 $ kubectl create namespace neuvector
 ```
+
+
+### Create secret for DockerHub access
 
 Create secret to access your DockerHub account with Kubernetes:
 ```bash
@@ -56,7 +61,8 @@ Data
 .dockerconfigjson:  166 bytes
 ```
 
-### Label the node
+
+### Label the Kubernetes node
 
 List all available Kubernetes nodes, of course we'll get only one for Docker4Mac which is named `docker-for-desktop`.
 ```bash
