@@ -67,6 +67,18 @@ service "neuvector-cluster-svc" created
 daemonset "neuvector-allinone-pod" created
 ```
 
+**EXPERT TIP:**
+It's also possible to create the deployment directly from an URL:
+```bash
+$ kubectl create -f \
+   https://raw.githubusercontent.com/DieterReuter/nv-d4m/master/neuvector-d4m.yaml
+clusterrolebinding "neuvector-binding" created
+service "neuvector-manager-svc" created
+service "neuvector-api-svc" created
+service "neuvector-cluster-svc" created
+daemonset "neuvector-allinone-pod" created
+```
+
 
 ## Verify NeuVector Deployment
 
