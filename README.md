@@ -12,20 +12,24 @@
 
 First of all, you'll need access to the NeuVector Docker images which are available at a private Docker Hub account. 
 
-Create `neuvector` namespace
+Create `neuvector` namespace:
 ```bash
 $ kubectl create namespace neuvector
 ```
 
-Create secret to access your DockerHub account with Kubernetes
+Create secret to access your DockerHub account with Kubernetes:
 ```bash
 $ export DOCKER_HUB_ID="your-docker-hub-id"
 $ export DOCKER_HUB_PASSWORD="your-docker-hub-password"
 $ export DOCKER_HUB_EMAIL="your-docker-hub-email"
-$ kubectl create secret docker-registry regsecret -n neuvector --docker-server=https://index.docker.io/v1/ --docker-username=$DOCKER_HUB_ID --docker-password=$DOCKER_HUB_PASSWORD --docker-email=$DOCKER_HUB_EMAIL
+$ kubectl create secret docker-registry regsecret -n neuvector \
+  --docker-server=https://index.docker.io/v1/ \
+  --docker-username=$DOCKER_HUB_ID \
+  --docker-password=$DOCKER_HUB_PASSWORD \
+  --docker-email=$DOCKER_HUB_EMAIL
 ```
 
-Verify the secret
+Verify the secret:
 ```bash
 $ kubectl get secret regsecret -n neuvector
 NAME        TYPE                             DATA      AGE
@@ -49,6 +53,7 @@ Data
 
 ## Create NeuVector Deployment 
 
+Deploy NeuVector resources:
 ```bash
 $ kubectl apply -f neuvector-d4m.yaml
 clusterrolebinding "neuvector-binding" created
@@ -61,6 +66,7 @@ daemonset "neuvector-allinone-pod" created
 
 ## Verify NeuVector Deployment
 
+Show all available NeuVector resources:
 ```bash
 $ kubectl get all -n neuvector
 NAME                        DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR     AGE
@@ -79,6 +85,7 @@ svc/neuvector-manager-svc   NodePort    10.101.232.50   <none>        8443:30432
 
 ## Delete NeuVector Deployment
 
+Delete deployment:
 ```bash
 $ kubectl delete -f neuvector-d4m.yaml
 clusterrolebinding "neuvector-binding" deleted
@@ -86,6 +93,12 @@ service "neuvector-manager-svc" deleted
 service "neuvector-api-svc" deleted
 service "neuvector-cluster-svc" deleted
 daemonset "neuvector-allinone-pod" deleted
+```
+
+Verify that it's really deleted:
+```bash
+$ kubectl get all -n neuvector
+No resources found.
 ```
 
 
