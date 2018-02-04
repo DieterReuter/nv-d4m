@@ -164,7 +164,7 @@ $ curl -k https://localhost:30558/
 ```
 
 ```bash
-$ curl -sk https://localhost:30558/api/health | jq .
+$ curl -sk https://localhost:30558/ | jq .
 {
   "code": 1,
   "error": "URL not found",
