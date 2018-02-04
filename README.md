@@ -1,6 +1,8 @@
 
 # Deploying NeuVector Container Firewall on Docker4Mac in Kubernetes
 
+For detailed information about the NeuVector Container Firewall solutions, please visit our website at https://neuvector.com.
+
 
 ## Prerequisites
 
@@ -10,7 +12,7 @@
 
 ### Prepare Docker-for-Mac
 
-First of all, you'll need access to the NeuVector Docker images which are available at a private Docker Hub account. 
+First of all, you'll need access to the NeuVector Docker images which are available at a private Docker Hub account. In order to test NeuVector you should first apply for a trial license at https://neuvector.com/try-neuvector/.
 
 Create `neuvector` namespace:
 ```bash
@@ -134,7 +136,9 @@ Try to access the API:
 ```bash
 $ curl -k https://localhost:30558/
 {"code":1,"error":"URL not found","message":"URL not found"}
+```
 
+```bash
 $ curl -sk https://localhost:30558/api/health | jq .
 {
   "code": 1,
@@ -143,7 +147,7 @@ $ curl -sk https://localhost:30558/api/health | jq .
 }
 ```
 
-As soon as we get a JSON answer, we know the API is accessible!
+As soon as we are getting a JSON answer, we know the API is accessible!
 
 ----
 
