@@ -7,7 +7,7 @@ Take this just as a technology preview of NeuVector!
 
 For detailed information about the NeuVector Container Firewall solutions, please visit our website at https://neuvector.com.
 
-And if you're dead serious about running Containers securely in production - no matter if it's on Docker CE, Docker EE, Kubernetes or OpenShift - you can easily reach out to me via at dieter@neuvector.com or [@Quintus23M](https://twitter.com/Quintus23M) and we could chat about Run-Time Container Security!
+And if you're dead serious about running Containers securely in production - no matter if it's in Docker CE, Docker EE, Kubernetes or OpenShift - you can easily reach out to me via Email dieter@neuvector.com or Twitter [@Quintus23M](https://twitter.com/Quintus23M) and we could chat about Run-Time Container Security!
 
 
 ## Prerequisites
