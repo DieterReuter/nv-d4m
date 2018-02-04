@@ -13,7 +13,7 @@ And if you're dead serious about running Containers securely in production - no 
 ## Prerequisites
 
 * [Docker for Mac](https://docs.docker.com/docker-for-mac/) 18.02.0-ce (tested with Version 18.02.0-ce-rc2-mac51 (22446) from edge channel)
-* Kubernetes v1.9.2 musst be enabled in D4M
+* Kubernetes v1.9.2 must be enabled in D4M
 
 
 ### Prepare Docker-for-Mac
