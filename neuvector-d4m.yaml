@@ -1,0 +1,126 @@
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: neuvector-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: neuvector
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: neuvector-manager-svc
+  namespace: neuvector
+spec:
+  ports:
+    - port: 8443
+      protocol: TCP
+      name: manager-8443-tcp
+  type: NodePort
+  selector:
+    app: neuvector-allinone-pod
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: neuvector-api-svc
+  namespace: neuvector
+spec:
+  ports:
+    - port: 10443
+      protocol: TCP
+      name: api-10443-tcp
+  type: NodePort
+  selector:
+    app: neuvector-allinone-pod
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: neuvector-cluster-svc
+  namespace: neuvector
+spec:
+  ports:
+  - port: 18300
+    protocol: TCP
+    name: cluster-18300-tcp
+  - port: 18301
+    protocol: TCP
+    name: cluster-18301-tcp
+  - port: 18301
+    protocol: UDP
+    name: cluster-18301-udp
+  clusterIP: None
+  selector:
+    app: neuvector-allinone-pod
+
+---
+
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: neuvector-allinone-pod
+  namespace: neuvector
+spec:
+  minReadySeconds: 120
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: neuvector-allinone-pod
+    spec:
+      imagePullSecrets:
+        - name: regsecret
+      containers:
+        - name: neuvector-allinone-pod
+          image: neuvector/allinone
+          securityContext:
+            privileged: true
+          env:
+            - name: CLUSTER_JOIN_ADDR
+              value: neuvector-cluster-svc.neuvector
+            - name: CLUSTER_ADVERTISED_ADDR
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          volumeMounts:
+            - mountPath: /var/neuvector
+              name: nv-share
+              readOnly: false
+            - mountPath: /var/run/docker.sock
+              name: docker-sock
+              readOnly: false
+            - mountPath: /host/proc
+              name: proc-vol
+              readOnly: true
+            - mountPath: /host/cgroup
+              name: cgroup-vol
+              readOnly: true
+      nodeSelector:
+        nvallinone: "true"
+      restartPolicy: Always
+      volumes:
+        - name: nv-share
+          hostPath:
+            path: /var/neuvector
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+        - name: proc-vol
+          hostPath:
+            path: /proc
+        - name: cgroup-vol
+          hostPath:
+            path: /sys/fs/cgroup
